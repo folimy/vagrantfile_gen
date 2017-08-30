@@ -1,0 +1,12 @@
+    config.ssh.insert_key = "false"
+    config.vm.provider "libvirt" do |libvirt|
+    config.vm.synced_folder ".", "/vagrant", disabled: true
+      libvirt.id_ssh_key_file = "$host_keydir/${host_list[$Count]}.key"
+      libvirt.driver = "kvm"
+      libvirt.memory = 8196
+      libvirt.cpus = 8
+      libvirt.host = "\$hypervisor_ip"
+      libvirt.username = "root"
+      libvirt.connect_via_ssh = "true"
+    end
+end

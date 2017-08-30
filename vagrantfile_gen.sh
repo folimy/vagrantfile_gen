@@ -59,7 +59,10 @@ input_type=$1
 		## Start to stamping for vagrant export
 		echo "" >> $output_file
 
+
 		cat << EOF >>  $output_file
+zinst_repo_ip=`grep "zinst_repo_ip"  $hostfile_dir/${host_list[$Count]}.list | tail -1 | awk -F'=' '{print $2}' | sed -e 's/"//g'`
+zinst_repo_host=`grep "zinst_repo_host"  $hostfile_dir/${host_list[$Count]}.list | tail -1| awk -F'=' '{print $2}' | sed -e 's/"//g'`
 	if [[ \$zinst_repo_ip = "" ]];then
 		zinst_repo_ip="10.52.164.254"
 	fi
@@ -84,25 +87,27 @@ NODE_COUNT = 10
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.provision "shell", path: "../../provisioning/default_setting.sh", args: "type=$input_type ip=\$zinst_repo_ip host=\$zinst_repo_host dns=\$domain_server http_proxy=10.53.15.219:3128"
 
+#######################################################################################custom
 EOF
 
 
 		## Each configuration export
 		cat $conf_dir/*.conf >> $output_file
-		cat << EOF >> $output_file
-    config.ssh.insert_key = "false"
-    config.vm.provider "libvirt" do |libvirt|
-    config.vm.synced_folder ".", "/vagrant", disabled: true
-      libvirt.id_ssh_key_file = "$host_keydir/${host_list[$Count]}.key"
-      libvirt.driver = "kvm"
-      libvirt.memory = 8196
-      libvirt.cpus = 8
-      libvirt.host = "\$hypervisor_ip"
-      libvirt.username = "root"
-      libvirt.connect_via_ssh = "true"
-    end
-end
-EOF
+
+		provider=`grep "provider"  $hostfile_dir/${host_list[$Count]}.list | tail -1 | awk -F'=' '{print $2}' | sed -e 's/"//g'`
+		provider_dir="./provider"
+		## Insert as the provider select
+		case $provider in
+			vsphere)
+				provider_conf="$provider_dir/vsphere" ;;
+			kvm)
+				provider_conf="$provider_dir/kvm" ;;
+			*)
+				provider_conf="$provider_dir/virtualbox" ;;
+		esac
+
+
+		cat $provider_conf >> $output_file
 
 		## Close export script
 		echo "EOF" >> $output_file

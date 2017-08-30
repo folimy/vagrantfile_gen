@@ -2,7 +2,8 @@
 BARR="##################################"
 echo "$BARR$BARR"
 echo "$BARR$BARR"
-Target_compose="[c7_jd-1.8.133_ds_servicepack-0.0.11-0.0.11]"
+#Target_compose="TEMPLATE_DOCKER_COMPOSE_YAML"
+Target_compose="centos7_jdk-1-8-131_tomcat-8-0-453__c7_jd-1.8.133_to-8.0.453__c7_jd-1.8.133__c7_jd-1.8.133_ds_servicepack-0.0.11"
 Target_address="https://git.hcdd.kr/DDB/ddb_bakery/raw/master/docker-composes"
 input_arry=($@)
         Countx=0
@@ -71,5 +72,5 @@ mkdir -p /data/src/bin
 cd /data/src/bin
 wget $Target_address/$Target_compose/service_restart.sh
 wget $Target_address/$Target_compose/docker-compose.yml;docker-compose up -d
-chmod 755 *.sh
+chmod 755 *.sh 2> /dev/null
 echo "$BARR  done  $BARR"

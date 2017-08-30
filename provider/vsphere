@@ -1,0 +1,15 @@
+#provider VMWare vsphere #
+  config.vm.provider :vsphere do |vsphere|
+    vsphere.host                  = '10.1.2.201'
+#    vsphere.name                  = vs_name
+    vsphere.compute_resource_name = '10.1.2.13'
+    vsphere.resource_pool_name    = 'zzz'
+    vsphere.template_name         = "Template/#{vs_template_OS}"
+    vsphere.vm_base_path          = "vagrant"
+
+    vsphere.user     = vs_user
+    vsphere.password = vs_pass
+    vsphere.insecure = true
+  end
+end
+#################################################################
