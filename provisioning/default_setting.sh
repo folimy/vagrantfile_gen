@@ -3,7 +3,6 @@ BARR="##################################"
 echo "$BARR$BARR"
 echo "$BARR$BARR"
 Target_compose="c7_ng-1.10.4__c7_keydb_mysql_default-0.0.1-0.0.1__c7_to-8.5.162_jd-1.8.133"
-#Target_compose="c7_jd-1.8.133_ds_servicepack-0.0.11"
 Target_address="https://git.hcdd.kr/DDB/ddb_bakery/raw/master/docker-composes"
 input_arry=($@)
         Countx=0

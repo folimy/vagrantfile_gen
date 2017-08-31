@@ -3,7 +3,6 @@ BARR="##################################"
 echo "$BARR$BARR"
 echo "$BARR$BARR"
 Target_compose="TEMPLATE_DOCKER_COMPOSE_YAML"
-#Target_compose="c7_jd-1.8.133_ds_servicepack-0.0.11"
 Target_address="https://git.hcdd.kr/DDB/ddb_bakery/raw/master/docker-composes"
 input_arry=($@)
         Countx=0
