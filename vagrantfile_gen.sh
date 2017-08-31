@@ -166,7 +166,7 @@ $DIALOG --backtitle "docker-compose Loader" \
 selected_compose_file=$(cat ./selected_img.list)
 
 cp ./provisioning/template_setting.sh ./provisioning/default_setting.sh
-sed -i 's/TEMPLATE_DOCKER_COMPOSE_YAML/'$selected_compose_file'/' ./provisioning/default_setting.sh
+sed -i '' 's/TEMPLATE_DOCKER_COMPOSE_YAML/'$selected_compose_file'/g' ./provisioning/default_setting.sh
 
 echo "  --- Vagrantfile has been created in each service directory. \"$Vagrantfile_base\" as below ---"
 rm -rf ./selected_img.list
