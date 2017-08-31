@@ -172,3 +172,9 @@ rm -rf ./selected_img.list
 rm -rf ./docker-compose.img
 
 tree $Vagrantfile_base
+echo " ################################################################# "
+echo " vagrant run information"
+echo " virtualbox -> cd ./service/virtualbox01/; vagrant up node01(~09)"
+echo " vsphere -> cd ./service/vsphere01/; vagrant up"
+echo " ################################################################# "
+
