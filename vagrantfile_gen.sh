@@ -171,4 +171,5 @@ sed -i '' 's/TEMPLATE_DOCKER_COMPOSE_YAML/'$selected_compose_file'/g' ./provisio
 echo "  --- Vagrantfile has been created in each service directory. \"$Vagrantfile_base\" as below ---"
 rm -rf ./selected_img.list
 rm -rf ./docker-compose.img
+
 tree $Vagrantfile_base
