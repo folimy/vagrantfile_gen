@@ -131,7 +131,7 @@ function get_compose_list() {
 	IMAGE_LIST_ARRAY[0]=""
 	IMAGE_COUNT=1
 	DIALOG=dialog
-	curl -s https://git.hcdd.kr/DDB/ddb_bakery/src/master/docker-composes -o /tmp/docker-compose.img &
+	curl -s https://git.hcdd.kr/DDB/ddb_bakery/src/master/docker-composes -o ./docker-compose.img &
 	{
 		i=0
 		while (true); do
@@ -149,7 +149,7 @@ function get_compose_list() {
 		echo 100
 		sleep 2
 	} | $DIALOG --backtitle "docker-compose " --title "Docker-Compose Image Check" --gauge "Loading Docker Compose List..." 6 80 0
-	for i in $(cat /tmp/docker-compose.img | grep "<a href=" | awk -F\"\> '{print $NF}' | grep ^[a-z][0-9] | sed -e 's/<\/a>//g'); do
+	for i in $(cat ./docker-compose.img | grep "<a href=" | awk -F\"\> '{print $NF}' | grep ^[a-z][0-9] | sed -e 's/<\/a>//g'); do
 		IMAGE_LIST_ARRAY[$IMAGE_COUNT]="$i $IMAGE_COUNT off"
 		let IMAGE_COUNT=$IMAGE_COUNT+1
 	done
@@ -160,13 +160,15 @@ Conf_create consul
 get_compose_list
 $DIALOG --backtitle "docker-compose Loader" \
 	--title "Select Docker-compose file" --clear \
-	--radiolist "Install  Docker-compose file  " 30 80 12 \
-	${IMAGE_LIST_ARRAY[@]} 2>/tmp/selected_img.list
+	--radiolist "Select Docker-compose file" 30 80 12 \
+	${IMAGE_LIST_ARRAY[@]} 2>./selected_img.list
 
-selected_compose_file=$(cat /tmp/selected_img.list)
+selected_compose_file=$(cat ./selected_img.list)
 
 cp ./provisioning/template_setting.sh ./provisioning/default_setting.sh
 sed -i 's/TEMPLATE_DOCKER_COMPOSE_YAML/'$selected_compose_file'/' ./provisioning/default_setting.sh
 
 echo "  --- Vagrantfile has been created in each service directory. \"$Vagrantfile_base\" as below ---"
+rm -rf ./selected_img.list
+rm -rf ./docker-compose.img
 tree $Vagrantfile_base
