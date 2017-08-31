@@ -11,5 +11,5 @@
     vsphere.password = vs_pass
     vsphere.insecure = true
   end
-end
 #################################################################
+end

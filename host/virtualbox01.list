@@ -1,8 +1,8 @@
 hypervisor_ip="10.0.1.12"
 provider="virtualbox"
 
-zinst_repo_ip="10.52.164.254"
-zinst_repo_host="package.dist.gsenext.com"
+zinst_repo_ip="13.124.6.97"
+zinst_repo_host="zinst.hcdd.kr"
 
 was_private="192.168.121.12x"
 was_public="10.0.1.12x"
